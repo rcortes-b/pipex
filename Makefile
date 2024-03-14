@@ -4,7 +4,7 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror -fsanitize=address
 RM = rm -rf
 
-SRCS = srcs/pipex.c srcs/bonus_utils.c srcs/utils.c
+SRCS = srcs/pipex.c srcs/utils.c srcs/here_doc.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -17,9 +17,9 @@ static void	do_infile(t_data *data, char **arguments)
 	data->infile = open(arguments[1], O_RDONLY);
 	if (data->infile == -1)
 	{
-		perror("pipex.c Line 66");
+		perror("pipex.c Line 20");
 		if (pipe(data->fd) == -1)
-			do_error(data->path, "pipex.c Line 23: Pipe Error:", -3);
+			do_error(data->path, "pipex.c Line 22: Pipe Error:", -3);
 		close(data->fd[WRITE_END]);
 		dup2(data->fd[READ_END], STDIN_FILENO);
 		close(data->fd[READ_END]);
@@ -36,10 +36,10 @@ static void	do_commands(t_data *data, char *argument)
 	t_temp	utils;
 
 	if (pipe(data->fd) == -1)
-		do_error(data->path, "pipex.c Line 23: Pipe Error:", -3);
+		do_error(data->path, "pipex.c Line 39: Pipe Error:", -3);
 	utils.pid = fork();
 	if (utils.pid == -1)
-		do_error(data->path, "pipex.c Line 26: Fork Error:", -4);
+		do_error(data->path, "pipex.c Line 42: Fork Error:", -4);
 	else if (utils.pid == 0)
 	{
 		close(data->fd[READ_END]);
@@ -47,10 +47,10 @@ static void	do_commands(t_data *data, char *argument)
 		close(data->fd[WRITE_END]);
 		utils.cmd = ft_split(argument, ' ');
 		if (!utils.cmd)
-			do_error(data->path, "pipex.c Line 34: Malloc Error.", -5);
+			do_error(data->path, "pipex.c Line 50: Malloc Error.", -5);
 		utils.cmd_path = check_path(data->path, utils.cmd[0]);
 		if (execve(utils.cmd_path, utils.cmd, NULL) == -1)
-			do_error(data->path, "pipex.c Line 37: Exec Error:", -6);
+			do_error(data->path, "pipex.c Line 53: Exec Error:", -6);
 	}
 	else
 		parent_commands(utils.pid, data->fd);
@@ -62,7 +62,7 @@ static void	do_outfile(t_data *data, char **arguments, int argc)
 
 	utils.pid = fork();
 	if (utils.pid == -1)
-		do_error(data->path, "pipex.c Line 26: Fork Error:", -4);
+		do_error(data->path, "pipex.c Line 65: Fork Error:", -4);
 	if (utils.pid == 0)
 	{
 		if (data->is_heredoc == 0)
@@ -73,7 +73,7 @@ static void	do_outfile(t_data *data, char **arguments, int argc)
 					| O_APPEND, 0644);
 		if (data->outfile == -1)
 		{
-			perror("pipex.c Line 60");
+			perror("pipex.c Line 76");
 			return ;
 		}
 		dup2(data->outfile, STDOUT_FILENO);
@@ -87,13 +87,16 @@ static void	do_outfile(t_data *data, char **arguments, int argc)
 static void	pipex(t_data *data, char **arguments, int argc)
 {
 	int	pid_counter;
+	int	wait_counter;
 
 	pid_counter = 1;
+	wait_counter = -1;
 	if (ft_strncmp(arguments[1], "here_doc", 8) == 0)
 	{
 		do_here_doc(data, arguments);
 		data->is_heredoc = 1;
 		pid_counter++;
+		wait_counter++;
 	}
 	else
 	{
@@ -104,6 +107,8 @@ static void	pipex(t_data *data, char **arguments, int argc)
 	while (++pid_counter < argc - 2)
 		do_commands(data, arguments[pid_counter]);
 	do_outfile(data, arguments, argc);
+	while (++wait_counter < argc - 3)
+		waitpid(-1, NULL, 0);
 }
 
 int	main(int argc, char **argv, char **envp)

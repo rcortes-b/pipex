@@ -12,6 +12,22 @@
 
 #include "../includes/pipex.h"
 
+static int	check_limiter(char *line, char *argument)
+{
+	int	i;
+
+	i = 0;
+	while (argument[i])
+	{
+		if (argument[i] != line[i])
+			return (0);
+		i++;
+	}
+	if (line[i] == '\n' && argument[i] == '\0')
+		return (1);
+	return (0);
+}
+
 void	do_here_doc(t_data *data, char **arguments)
 {
 	char	*line;
@@ -28,7 +44,7 @@ void	do_here_doc(t_data *data, char **arguments)
 		line = get_next_line(0);
 		if (!line)
 			continue ;
-		if (ft_strncmp(line, arguments[2], ft_strlen(line)) == 0)
+		if (check_limiter(line, arguments[2]))
 			break ;
 		write(fd[WRITE_END], line, ft_strlen(line));
 		free(line);
