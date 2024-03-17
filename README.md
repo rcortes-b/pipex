@@ -13,8 +13,8 @@
 - [🔎 What is implemented?](#-what-is-implemented)
 - [🚀 Getting Started](#-getting-started--)
     - [🔧 Installation](#-installation)
-    - [🤖 Use pipex](#-use-get_next_line)
-    - [🤖 Use pipex (with heredoc)](#-use-get_next_line)
+    - [🤖 Use pipex](#-use-pipex-without-here_doc)
+    - [🤖 Use pipex (with heredoc)](#-use-pipex-with-here_doc)
 - [Extra: Check out my profile on the Intranet](#--check-out-my-profile-on-the-intra-of-42-school-%EF%B8%8F)
 
 ---
@@ -36,7 +36,7 @@ The functions have to follow a strict rule. For example, you cannot intitialize 
 
 ## 🔎 _What is implemented?_
 
-This programm is able to replicate the pipe behaviour using a file (or not) as input and print the output in other file executing as many commands as you want.
+This programm is able to replicate the pipe behaviour using a file as input and print the output in other file executing as many commands as you want.
 
 Pipex also replicates the behavior of the heredoc and appends the content to an outfile.
 
