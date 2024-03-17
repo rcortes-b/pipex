@@ -6,13 +6,11 @@
 /*   By: rcortes- <rcortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:53:20 by rcortes-          #+#    #+#             */
-/*   Updated: 2024/03/09 17:53:21 by rcortes-         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:25:14 by rcortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-//ft_putstr_fd(s, 2);
 
 void	do_error(char **array, char const *s, int error_code)
 {
@@ -112,9 +110,8 @@ char	*check_path(char **path, char *cmd)
 	return (NULL);
 }
 
-void	parent_commands(pid_t pid, int fd[2])
+void	parent_commands(int fd[2])
 {
-	waitpid(pid, NULL, 0);
 	close(fd[WRITE_END]);
 	dup2(fd[READ_END], STDIN_FILENO);
 	close(fd[READ_END]);

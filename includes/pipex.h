@@ -6,7 +6,7 @@
 /*   By: rcortes- <rcortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 18:55:30 by rcortes-          #+#    #+#             */
-/*   Updated: 2024/03/10 18:55:31 by rcortes-         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:24:04 by rcortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void	do_error(char **array, char const *s, int error_num);
 void	do_here_doc(t_data *data, char **arguments);
 
 //Aux for Norminette
-void	parent_commands(pid_t pid, int fd[2]);
+void	parent_commands(int fd[2]);
 
 #endif

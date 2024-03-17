@@ -6,7 +6,7 @@
 /*   By: rcortes- <rcortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 18:55:59 by rcortes-          #+#    #+#             */
-/*   Updated: 2024/03/10 18:55:59 by rcortes-         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:24:29 by rcortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	do_commands(t_data *data, char *argument)
 			do_error(data->path, "pipex.c Line 53: Exec Error:", -6);
 	}
 	else
-		parent_commands(utils.pid, data->fd);
+		parent_commands(data->fd);
 }
 
 static void	do_outfile(t_data *data, char **arguments, int argc)
